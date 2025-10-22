@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Recipes Search (Offline)</title>
+<style>
+  /* Local styles – no CDN needed */
+  :root { --bg:#f6f9fc; --card:#fff; --ink:#0f172a; --muted:#64748b; --chip:#eef2ff; --chip2:#fee2e2; }
+  body { margin:0; font:14px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; background:var(--bg); color:var(--ink) }
+  .wrap { max-width:1050px; margin:32px auto; padding:0 16px }
+  .h1 { display:flex; align-items:center; gap:10px; font-size:26px; font-weight:700 }
+  .card { background:var(--card); border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,.06); padding:16px }
+  .row { display:grid; grid-template-columns:260px 1fr; gap:16px; margin-top:16px }
+  .box { background:#f1f5f9; border-radius:14px; min-height:54px; display:flex; align-items:center; padding:10px 12px }
+  input[type=search]{ flex:1; font-size:15px; border:0; outline:0; background:transparent }
+  .facet h3{ font-weight:700; margin:0 0 8px 0 }
+  .facet label{ display:block; margin:6px 0; color:var(--muted) }
+  .hit{ background:#fff; border-radius:16px; box-shadow:0 1px 10px rgba(0,0,0,.06); padding:12px 14px; margin:10px 0 }
+  .chips span{ display:inline-block; background:var(--chip); color:#3730a3; font-size:12px; border-radius:999px; padding:4px 8px; margin:3px 6px 0 0 }
+  .chips .warn{ background:var(--chip2); color:#991b1b }
+  .muted{ color:var(--muted) }
+  .controls{ display:flex; gap:8px; align-items:center }
+  select,button{ padding:8px 10px; border-radius:10px; border:1px solid #e5e7eb; background:#fff; cursor:pointer }
+  .diag li{ margin:4px 0 } .ok{ color:#15803d } .bad{ color:#b91c1c }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="h1">🍳 Recipes Search</div>
+
+    <div class="card">
+      <ul id="diag" class="diag">
+        <li>Typesense health: <span id="d-health" class="bad">checking…</span></li>
+        <li>Collection: <span id="d-coll" class="bad">checking…</span></li>
+        <li>Config: <span id="d-conf" class="ok">ok</span></li>
+      </ul>
+      <div class="controls" style="margin-top:8px">
+        <button id="smoke">Run smoke search (q=curry)</button>
+        <span id="smoke-out" class="muted"></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="card" style="position:sticky; top:12px; align-self:start">
+        <div class="facet">
+          <h3>Cuisine</h3>
+          <div id="facet-cuisine"></div>
+        </div>
+        <div class="facet" style="margin-top:12px">
+          <h3>Categories</h3>
+          <div id="facet-categories"></div>
+        </div>
+        <div class="facet" style="margin-top:12px">
+          <h3>Allergens</h3>
+          <div id="facet-allergens"></div>
+        </div>
+        <div style="margin-top:12px">
+          <button id="clear">Clear filters</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="box">
+          <input id="q" type="search" placeholder="Search recipes… (title, ingredients, summary)" />
+          <div class="controls">
+            <label class="muted">Sort</label>
+            <select id="sort">
+              <option value="">Relevance</option>
+              <option value="calories:asc">Calories ↑</option>
+              <option value="calories:desc">Calories ↓</option>
+            </select>
+          </div>
+        </div>
+        <div id="hits"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+const API_KEY   = 'admin_dev_key';
+const HOST      = '127.0.0.1';
+const PORT      = '8108';
+const PROTOCOL  = 'http';
+const COLL      = 'recipes';
+
+const qs = s => document.querySelector(s);
+const byId = id => document.getElementById(id);
+
+function filterExpr(filters){
+  // filters = { cuisine:Set, categories:Set, allergens:Set }
+  const parts = [];
+  for (const [k,set] of Object.entries(filters)){
+    if (!set.size) continue;
+    const ors = [...set].map(v => `${k}:='${String(v).replaceAll("'", "\\'")}'`);
+    parts.push(ors.length>1 ? '('+ors.join(' || ')+')' : ors[0]);
+  }
+  return parts.join(' && ');
+}
+
+async function search({q='',page=1,perPage=20,filters={},sort=''}={}){
+  const url = new URL(`${PROTOCOL}://${HOST}:${PORT}/collections/${COLL}/documents/search`);
+  url.searchParams.set('q', q);
+  url.searchParams.set('query_by', 'title,ingredients,summary');
+  url.searchParams.set('per_page', perPage);
+  url.searchParams.set('page', page);
+  url.searchParams.set('facet_by', 'cuisine,categories,allergens');
+  const fb = filterExpr(filters);
+  if (fb) url.searchParams.set('filter_by', fb);
+  if (sort) url.searchParams.set('sort_by', sort);
+  const res = await fetch(url, { headers:{'X-TYPESENSE-API-KEY': API_KEY}});
+  return await res.json();
+}
+
+function renderHits(json){
+  const pane = byId('hits');
+  pane.innerHTML = '';
+  if (!json.found){
+    pane.innerHTML = `<div class="card"><b>No results found</b><div class="muted">Try clearing filters or using broader terms.</div></div>`;
+    return;
+  }
+  (json.hits||[]).forEach(h => {
+    const d = h.document;
+    const el = document.createElement('div');
+    el.className = 'hit';
+    el.innerHTML = `
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:center">
+        <div style="font-weight:700">${d.title ?? '(untitled)'}</div>
+        ${d.cuisine ? `<span class="muted">${d.cuisine}</span>` : ``}
+      </div>
+      ${d.summary ? `<div class="muted" style="margin-top:4px">${d.summary}</div>` : ``}
+      <div class="chips" style="margin-top:6px">
+        ${(d.categories||[]).map(c=>`<span>${c}</span>`).join('')}
+        ${(d.allergens||[]).map(a=>`<span class="warn">${a}</span>`).join('')}
+      </div>
+      <div class="muted" style="margin-top:6px">${Number.isFinite(d.calories)?`Calories: ${d.calories}`:''}</div>
+    `;
+    pane.appendChild(el);
+  });
+}
+
+function renderFacets(json, chosen){
+  function draw(id, key){
+    const host = byId(id); host.innerHTML = '';
+    const counts = (json.facet_counts||[]).find(f => f.field_name === key);
+    const values = counts ? counts.counts : [];
+    values.sort((a,b)=> b.count-a.count);
+    values.forEach(v=>{
+      const lab = document.createElement('label');
+      const chk = document.createElement('input');
+      chk.type = 'checkbox';
+      chk.checked = chosen[key].has(v.value);
+      chk.addEventListener('change', () => {
+        chk.checked ? chosen[key].add(v.value) : chosen[key].delete(v.value);
+        doSearch();
+      });
+      lab.appendChild(chk);
+      lab.appendChild(document.createTextNode(' ' + v.value + ` (${v.count})`));
+      host.appendChild(lab);
+    });
+  }
+  draw('facet-cuisine','cuisine');
+  draw('facet-categories','categories');
+  draw('facet-allergens','allergens');
+}
+
+async function health(){
+  const h = byId('d-health'), c = byId('d-coll');
+  try{
+    const ok = await fetch(`${PROTOCOL}://${HOST}:${PORT}/health`).then(r=>r.json());
+    h.textContent = ok.ok ? 'ok' : 'down';
+    h.className = ok.ok ? 'ok' : 'bad';
+  }catch{ h.textContent='down'; h.className='bad'; }
+  try{
+    const col = await fetch(`${PROTOCOL}://${HOST}:${PORT}/collections/${COLL}`,{headers:{'X-TYPESENSE-API-KEY':API_KEY}}).then(r=>r.json());
+    c.textContent = col.name ? `ok (${col.num_documents} docs)` : 'missing';
+    c.className = col.name ? 'ok' : 'bad';
+  }catch{ c.textContent='missing'; c.className='bad'; }
+}
+
+const state = {
+  q: '',
+  sort: '',
+  filters: { cuisine:new Set(), categories:new Set(), allergens:new Set() }
+};
+
+async function doSearch(){
+  const json = await search({ q: state.q, filters: state.filters, sort: state.sort });
+  renderHits(json);
+  renderFacets(json, state.filters);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  health();
+  byId('q').addEventListener('input', e => { state.q = e.target.value; doSearch(); });
+  byId('sort').addEventListener('change', e => { state.sort = e.target.value; doSearch(); });
+  byId('clear').addEventListener('click', () => { state.filters.cuisine.clear(); state.filters.categories.clear(); state.filters.allergens.clear(); doSearch(); });
+  byId('smoke').addEventListener('click', async () => {
+    const out = byId('smoke-out');
+    const json = await search({ q: 'curry', perPage: 3 });
+    out.textContent = json.found ? `ok: ${json.found} hits` : 'no hits';
+  });
+  doSearch();
+});
+</script>
+</body>
+</html>
