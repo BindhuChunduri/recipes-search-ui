@@ -32,3 +32,11 @@ such as ingredients, nutrients, and food groups.
 ## Status
 Initial version with dataset processing and search indexing completed.
 UI and advanced filtering under active development.
+
+## How to Run (Local)
+1. Install Docker
+2. Navigate to the `typesense/` folder
+3. Run:
+   ```bash
+   docker-compose up
+
