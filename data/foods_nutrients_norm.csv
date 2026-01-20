@@ -1,0 +1,36 @@
+food,food_group,cuisine_example,key_nutrients,carbs_g_per_100g,protein_g_per_100g,fat_g_per_100g,fiber_g_per_100g,calories_kcal_per_100g,usda_fdc_link_1,usda_fdc_link_2,vitamins_per_100g,minerals_per_100g
+Apple,Fruit,American/European,"Vitamin C, Fiber",13.8,0.26,0.17,2.4,52,FDC Link,FDC Link (raw),Vit. C (4.6 mg),Potassium (107 mg)
+Banana,Fruit,American,"Potassium, Vitamin B6",22.8,1.09,0.33,2.6,89,FDC Link,FDC Link (raw),"Vit. B6 (0.4 mg), Vit. C (8.7 mg)","Potassium (358 mg), Magnesium (27 mg)"
+Orange,Fruit,American,"Vitamin C, Folate",11.8,0.9,0.1,2.4,47,FDC Link,FDC Link (raw),"Vit. C (53 mg), Folate (30 µg)","Potassium (181 mg), Calcium (40 mg)"
+Strawberry,Fruit,American,"Vitamin C, Antioxidants",7.7,0.8,0.3,2.0,32,FDC Link,FDC Link (raw),"Vit. C (59 mg), Folate (24 µg)","Manganese (0.4 mg), Potassium (153 mg)"
+Blueberry,Fruit,American,"Vitamin K, Antioxidants",14.5,0.7,0.3,2.4,57,FDC Link,FDC Link (raw),"Vit. C (9.7 mg), Vit. K (19 µg)",Manganese (0.3 mg)
+Grapes,Fruit,Italian/Mediterranean,"Vitamin K, Antioxidants",18.1,0.7,0.2,0.9,69,FDC Link,FDC Link (raw),"Vit. K (14.6 µg), Vit. C (4 mg)",Potassium (191 mg)
+Pineapple,Fruit,American/Asian,"Vitamin C, Manganese",13.1,0.5,0.1,1.4,50,FDC Link,FDC Link (raw),Vit. C (48 mg),Manganese (0.9 mg)
+Mango,Fruit,Indian,"Vitamin A, Vitamin C",15.0,0.8,0.4,1.6,60,FDC Link,FDC Link (raw),"Vit. A (54 µg), Vit. C (36 mg)",Potassium (168 mg)
+Kiwi,Fruit,NZ/Japanese,"Vitamin C, Fiber",14.7,1.1,0.5,3.0,61,FDC Link,FDC Link (raw),"Vit. C (93 mg), Vit. K (41 µg)",Potassium (312 mg)
+Pear,Fruit,American/European,"Fiber, Vitamin C",15.2,0.4,0.1,3.1,57,FDC Link,FDC Link (raw),Vit. C (4.3 mg),Potassium (116 mg)
+Peach,Fruit,American,"Vitamin C, Vitamin A",9.5,0.9,0.1,1.5,39,FDC Link,FDC Link (raw),"Vit. C (6.6 mg), Vit. A (16 µg)",Potassium (190 mg)
+Cherry,Fruit,American/European,"Antioxidants, Vitamin C",16.0,1.1,0.2,2.1,63,FDC Link,FDC Link (raw),Vit. C (7 mg),Potassium (222 mg)
+Watermelon,Fruit,American,"Lycopene, Vitamin A",7.6,0.6,0.2,0.4,30,FDC Link,FDC Link (raw),"Vit. C (8.1 mg), Vit. A (28 µg)",Potassium (112 mg)
+Cantaloupe,Fruit,American,"Vitamin A, Vitamin C",8.2,0.8,0.2,0.9,34,FDC Link,FDC Link (raw),"Vit. A (169 µg), Vit. C (37 mg)",Potassium (267 mg)
+Honeydew,Fruit,American,"Vitamin C, Potassium",9.1,0.5,0.1,0.8,36,FDC Link,FDC Link (raw),"Vit. C (18 mg), Folate (19 µg)",Potassium (228 mg)
+Plum,Fruit,American/European,"Vitamin C, Potassium",11.4,0.7,0.3,1.4,46,FDC Link,FDC Link (raw),Vit. C (9.5 mg),Potassium (157 mg)
+Apricot,Fruit,Mediterranean,"Vitamin A, Potassium",11.1,1.4,0.4,2.0,48,FDC Link,FDC Link (raw),"Vit. A (96 µg), Vit. C (10 mg)",Potassium (259 mg)
+Grapefruit,Fruit,American,Vitamin C,10.7,0.8,0.1,1.6,42,FDC Link,FDC Link (raw),Vit. C (31 mg),Potassium (135 mg)
+Pomegranate,Fruit,Indian/Middle Eastern,"Antioxidants, Vitamin C",18.7,1.7,1.2,4.0,83,FDC Link,FDC Link (raw),"Vit. C (10 mg), Folate (38 µg)",Potassium (236 mg)
+Mandarin,Fruit,Chinese,"Vitamin C, Folate",13.3,0.8,0.3,1.8,53,FDC Link,FDC Link (raw),Vit. C (27 mg),Potassium (166 mg)
+Avocado,Fruit,Mexican/American,"Healthy fats, Vitamin K",8.5,2.0,14.7,6.7,160,FDC Link,FDC Link (raw),"Vit. K (21 µg), Folate (81 µg), Vit. C (10 mg)","Potassium (485 mg), Magnesium (29 mg)"
+Guava,Fruit,Indian/Asian,"Vitamin C, Fiber",14.3,2.6,1.0,5.4,68,FDC Link,FDC Link (raw),"Vit. C (228 mg), Vit. A (31 µg), Folate (49 µg)",Potassium (417 mg)
+Papaya,Fruit,Indian,"Vitamin A, Vitamin C",10.8,0.5,0.3,1.7,43,FDC Link,FDC Link (raw),"Vit. C (61 mg), Vit. A (47 µg), Folate (37 µg)",Potassium (182 mg)
+Lychee,Fruit,Chinese,"Vitamin C, Copper",16.5,0.8,0.4,1.3,66,FDC Link,FDC Link (raw),Vit. C (72 mg),"Copper (0.1 mg), Potassium (171 mg)"
+Persimmon,Fruit,Japanese,"Vitamin A, Potassium",18.6,0.6,0.3,3.6,81,FDC Link,FDC Link (raw),"Vit. A (81 µg), Vit. C (7.5 mg)","Potassium (161 mg), Manganese (0.4 mg)"
+Dragon Fruit (Pitaya),Fruit,SE Asian,"Vitamin C, Fiber",11.0,1.2,0.1,3.0,50,FDC Link,FDC Link (raw),Vit. C (3 mg),"Iron (1.9 mg), Magnesium (10 mg)"
+Jackfruit,Fruit,Indian/SE Asian,"Vitamin A, Vitamin C",23.3,1.7,0.6,1.5,95,FDC Link,FDC Link (raw),"Vit. C (14.7 mg), Vit. A (5 µg)",Potassium (448 mg)
+Durian,Fruit,SE Asian,"Vitamin C, Folate",27.1,1.5,5.3,3.8,147,FDC Link,FDC Link (raw),"Vit. C (19.7 mg), Folate (36 µg)","Potassium (436 mg), Manganese (0.3 mg)"
+Soursop (Guanábana),Fruit,Caribbean,"Vitamin C, Fiber",16.8,1.0,0.3,3.3,66,FDC Link,FDC Link (raw),Vit. C (20.6 mg),"Potassium (278 mg), Magnesium (21 mg)"
+Passionfruit,Fruit,Brazilian/Asian,"Vitamin C, Fiber",23.4,2.2,0.7,10.4,97,FDC Link,FDC Link (raw),"Vit. C (30 mg), Vit. A (64 µg)","Potassium (348 mg), Iron (1.6 mg)"
+Starfruit (Carambola),Fruit,Asian,"Vitamin C, Potassium",6.7,1.0,0.3,2.8,31,FDC Link,FDC Link (raw),Vit. C (34 mg),Potassium (133 mg)
+Longan,Fruit,Chinese,"Vitamin C, Iron",15.1,1.3,0.1,1.1,60,FDC Link,FDC Link (raw),Vit. C (84 mg),Potassium (266 mg)
+Rambutan,Fruit,SE Asian,"Vitamin C, Iron",20.9,0.9,0.2,0.9,82,FDC Link,FDC Link (raw),Vit. C (8 mg),"Potassium (42 mg), Copper (0.1 mg)"
+Acerola Cherry,Fruit,Caribbean,Vitamin C,7.7,0.4,0.3,1.1,32,FDC Link,FDC Link (raw),"Vit. C (1677 mg), Vit. A (38 µg)",Potassium (146 mg)
+Breadfruit,Fruit,Pacific/Caribbean,"Carbs, Vitamin C",27.1,1.1,0.2,4.9,103,FDC Link,FDC Link (raw),Vit. C (29 mg),"Potassium (490 mg), Magnesium (25 mg)"
