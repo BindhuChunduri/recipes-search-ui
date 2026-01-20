@@ -1,0 +1,13 @@
+{
+  "name": "recipes",
+  "default_sorting_field": "calories",
+  "fields": [
+    {"name":"title","type":"string"},
+    {"name":"cuisine","type":"string","facet": true},
+    {"name":"categories","type":"string[]","facet": true},
+    {"name":"calories","type":"int32"},
+    {"name":"ingredients","type":"string[]"},
+    {"name":"healthy_notes","type":"string"},
+    {"name":"summary","type":"string"}
+  ]
+}

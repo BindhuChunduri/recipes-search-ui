@@ -1,0 +1,13 @@
+﻿{
+  "name": "recipes",
+  "fields": [
+    {"name": "title", "type": "string"},
+    {"name": "cuisine", "type": "string", "facet": true},
+    {"name": "summary", "type": "string"},
+    {"name": "calories", "type": "int32"},
+    {"name": "ingredients", "type": "string[]"},
+    {"name": "categories", "type": "string[]", "facet": true},
+    {"name": "allergens", "type": "string[]", "facet": true}
+  ],
+  "default_sorting_field": "calories"
+}

@@ -1,0 +1,30 @@
+{
+  "name": "recipes",
+  "fields": [
+    {"name":"id","type":"string"},
+    {"name":"title","type":"string"},
+    {"name":"summary","type":"string"},
+    {"name":"ingredients","type":"string[]"},
+    {"name":"steps","type":"string[]"},
+    {"name":"categories","type":"string[]","facet":true},
+    {"name":"cuisine","type":"string","facet":true},
+    {"name":"diet_type","type":"string","facet":true},
+    {"name":"vegan","type":"bool","facet":true},
+    {"name":"vegetarian","type":"bool","facet":true},
+    {"name":"gluten_free","type":"bool","facet":true},
+    {"name":"nut_free","type":"bool","facet":true},
+    {"name":"low_sodium","type":"bool","facet":true},
+    {"name":"allergens","type":"string[]","facet":true},
+
+    {"name":"calories","type":"int32","facet":true,"optional":true},
+    {"name":"protein_g","type":"int32","optional":true},
+    {"name":"carbs_g","type":"int32","optional":true},
+    {"name":"fat_g","type":"int32","optional":true},
+
+    {"name":"rating","type":"float"},                    // non-optional (default sort)
+    {"name":"prep_time_min","type":"int32","optional":true},
+    {"name":"cook_time_min","type":"int32","optional":true},
+    {"name":"servings","type":"int32","optional":true}
+  ],
+  "default_sorting_field": "rating"
+}
